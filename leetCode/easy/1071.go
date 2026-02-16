@@ -2,8 +2,7 @@ package easy
 
 func GcdOfStrings(str1 string, str2 string) string {
 
-	var gcd func(a, b int) int
-	gcd = func(a, b int) int {
+	gcd := func(a, b int) int {
 		for b != 0 {
 			a, b = b, a%b
 		}
