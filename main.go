@@ -4,5 +4,5 @@ import "learn-golang/practice"
 
 func main() {
 	//syntax.PrintVariables()
-	practice.ConcurrentSquares()
+	practice.CancellableWorkerPool()
 }
