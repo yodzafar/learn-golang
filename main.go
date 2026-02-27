@@ -1,10 +1,8 @@
 package main
 
-import (
-	"learn-golang/syntax/day_5"
-)
+import "learn-golang/practice"
 
 func main() {
 	//syntax.PrintVariables()
-	day_5.Init()
+	practice.ConcurrentSquares()
 }
