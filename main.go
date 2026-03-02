@@ -1,8 +1,8 @@
 package main
 
-import "learn-golang/practice"
+import "learn-golang/patterns/concurrency"
 
 func main() {
-	//syntax.PrintVariables()
-	practice.CancellableWorkerPool()
+	concurrency.Promise()
+
 }

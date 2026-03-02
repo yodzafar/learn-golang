@@ -26,9 +26,15 @@ func worker(ctx context.Context, id int, jobs <-chan int, results chan<- JobResu
 				fmt.Printf("Worker %d: jobs channel closed\n", id)
 				return
 			}
-			fmt.Printf("Worker %d processing job %d\n", id, job)
-			time.Sleep(time.Second * 5)
-			results <- JobResult{JobID: job, Value: job * 2}
+
+			select {
+			case <-time.After(5 * time.Second):
+				fmt.Printf("Worker %d processing job %d\n", id, job)
+				results <- JobResult{JobID: job, Value: job * 2}
+			case <-ctx.Done():
+				fmt.Printf("Worker %d: cancelled during work\n", id)
+				return
+			}
 		}
 	}
 }
@@ -41,7 +47,7 @@ func WorkerPool() {
 	results := make(chan JobResult, numJobs)
 	var wg sync.WaitGroup
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	for w := 1; w <= numWorkers; w++ {
@@ -67,6 +73,4 @@ func WorkerPool() {
 	for i := 1; i <= numJobs; i++ {
 		fmt.Printf("Job %d Result %d\n", i, resMap[i])
 	}
-
-	fmt.Println("All jobs processed successfully!")
 }
