@@ -22,12 +22,12 @@ func worker(ctx context.Context, id int, jobs <-chan int, results chan<- JobResu
 			fmt.Printf("Worker %d: exiting due to context cancel\n", id)
 			return
 		case job, ok := <-jobs:
-			if !ok { // channel yopilgan
+			if !ok {
 				fmt.Printf("Worker %d: jobs channel closed\n", id)
 				return
 			}
 			fmt.Printf("Worker %d processing job %d\n", id, job)
-			time.Sleep(time.Second * 5) // ishni simulyatsiya qilish
+			time.Sleep(time.Second * 5)
 			results <- JobResult{JobID: job, Value: job * 2}
 		}
 	}
@@ -41,35 +41,29 @@ func WorkerPool() {
 	results := make(chan JobResult, numJobs)
 	var wg sync.WaitGroup
 
-	// Context timeout yoki cancel qo‘yish mumkin
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	// Workerlarni ishga tushirish
 	for w := 1; w <= numWorkers; w++ {
 		wg.Add(1)
 		go worker(ctx, w, jobs, results, &wg)
 	}
 
-	// Joblarni yuborish
 	for j := 1; j <= numJobs; j++ {
 		jobs <- j
 	}
-	close(jobs) // channel yopildi → workerlar loop tugaydi
+	close(jobs)
 
-	// Natijalar uchun go routine: WaitGroup tugashini kutadi
 	go func() {
 		wg.Wait()
 		close(results)
 	}()
 
-	// Results map bilan job order saqlash
 	resMap := make(map[int]int)
 	for r := range results {
 		resMap[r.JobID] = r.Value
 	}
 
-	// Job order bilan natijalarni chiqarish
 	for i := 1; i <= numJobs; i++ {
 		fmt.Printf("Job %d Result %d\n", i, resMap[i])
 	}
