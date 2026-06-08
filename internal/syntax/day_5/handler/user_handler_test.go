@@ -2,8 +2,8 @@ package handler
 
 import (
 	"bytes"
-	"learn-golang/syntax/day_5/domain"
-	"learn-golang/syntax/day_5/usecase"
+	"learn-golang/internal/syntax/day_5/domain"
+	"learn-golang/internal/syntax/day_5/usecase"
 	"net/http"
 	"net/http/httptest"
 	"testing"

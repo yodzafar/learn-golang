@@ -1,6 +1,6 @@
 package infrastructure
 
-import "learn-golang/syntax/day_5/domain"
+import "learn-golang/internal/syntax/day_5/domain"
 
 type UserRepoDB struct{}
 

@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"learn-golang/syntax/day_5/domain"
+	"learn-golang/internal/syntax/day_5/domain"
 	"time"
 )
 

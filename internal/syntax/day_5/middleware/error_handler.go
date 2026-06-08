@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"learn-golang/syntax/day_5/utils"
+	"learn-golang/internal/syntax/day_5/utils"
 	"log"
 	"net/http"
 )

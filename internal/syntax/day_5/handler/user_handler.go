@@ -3,8 +3,8 @@ package handler
 import (
 	"context"
 	"encoding/json"
-	"learn-golang/syntax/day_5/usecase"
-	"learn-golang/syntax/day_5/utils"
+	"learn-golang/internal/syntax/day_5/usecase"
+	"learn-golang/internal/syntax/day_5/utils"
 	"log"
 	"net/http"
 	"time"
